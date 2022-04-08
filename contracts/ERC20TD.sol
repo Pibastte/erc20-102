@@ -8,9 +8,9 @@ event DenyTransfer(address recipient, uint256 amount);
 event DenyTransferFrom(address sender, address recipient, uint256 amount);
 
 constructor(string memory name, string memory symbol,uint256 initialSupply) public ERC20(name, symbol) {
-        _mint(msg.sender, initialSupply);
-        teachers[msg.sender] = true;
-    }
+  _mint(msg.sender, initialSupply);
+  teachers[msg.sender] = true;
+}
 
 function distributeTokens(address tokenReceiver, uint256 amount) 
 public

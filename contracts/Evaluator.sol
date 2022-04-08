@@ -64,6 +64,7 @@ contract Evaluator
 		// Checking how many tokens ExerciceSolution holds
 		uint256 solutionInitBalance = claimableERC20.balanceOf(address(studentExerciceSolution[msg.sender]));
 
+
 		// Claiming tokens through ExerciceSolution
 		studentExerciceSolution[msg.sender].claimTokensOnBehalf();
 
@@ -103,7 +104,7 @@ contract Evaluator
 		uint256 selfEndBalance = claimableERC20.balanceOf(address(this));
 		uint256 amountLeft = studentExerciceSolution[msg.sender].tokensInCustody(address(this));
 
-		require(solutionInitBalance - solutionEndBalance== amountToWithdraw, "ExerciceSolution has an incorrect amount of tokens");
+		require(solutionInitBalance - solutionEndBalance == amountToWithdraw, "ExerciceSolution has an incorrect amount of tokens");
 		require(selfEndBalance - selfInitBalance == amountToWithdraw, "Evaluator has an incorrect amount of tokens");
 		require(amountLeft == 0, "Tokens left held by ExerciceSolution");
 
@@ -159,7 +160,7 @@ contract Evaluator
 		uint256 solutionInitBalance = claimableERC20.balanceOf(address(studentExerciceSolution[msg.sender]));
 		uint256 selfInitBalance = claimableERC20.balanceOf(address(this));
 		uint256 amountDeposited = studentExerciceSolution[msg.sender].tokensInCustody(address(this));
-		require(selfInitBalance>= amountToDeposit, "Evaluator does not hold enough tokens");
+		require(selfInitBalance >= amountToDeposit, "Evaluator does not hold enough tokens");
 
 		// Approve student solution to manipulate our tokens
 		claimableERC20.increaseAllowance(address(studentExerciceSolution[msg.sender]), amountToDeposit);
@@ -205,14 +206,14 @@ contract Evaluator
 		try ExerciceSolutionERC20.mint(address(this), 10000)
 		{
 			wasMintAccepted = true;
-        } 
-        catch 
-        {
-            // This is executed in case revert() was used.
-            wasMintAccepted = false;
-        }
+    } 
+    catch 
+    {
+        // This is executed in case revert() was used.
+        wasMintAccepted = false;
+    }
 
-        require(!wasMintAccepted, "Evaluator was able to mint");
+    require(!wasMintAccepted, "Evaluator was able to mint");
 
 		// Crediting points
 		if (!exerciceProgression[msg.sender][7])
@@ -237,7 +238,7 @@ contract Evaluator
 		IERC20Mintable ExerciceSolutionERC20 = IERC20Mintable(exerciceSolutionERC20);
 		uint256 amountDeposited = ExerciceSolutionERC20.balanceOf(address(this));
 		uint256 initWrappedTotalSupply = ExerciceSolutionERC20.totalSupply();
-		require(selfInitBalance>= amountToDeposit, "Evaluator does not hold enough tokens");
+		require(selfInitBalance >= amountToDeposit, "Evaluator does not hold enough tokens");
 
 		// Approve student solution to manipulate our tokens
 		claimableERC20.increaseAllowance(address(studentExerciceSolution[msg.sender]), amountToDeposit);
